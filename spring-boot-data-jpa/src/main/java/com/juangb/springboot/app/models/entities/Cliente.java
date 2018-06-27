@@ -3,17 +3,46 @@ package com.juangb.springboot.app.models.entities;
 import java.io.Serializable;
 import java.util.Date;
 
-public class Cliente implements Serializable{
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.format.annotation.DateTimeFormat;
+
+@Entity
+@Table(name = "clientes")
+public class Cliente implements Serializable {
+
+	private static final long serialVersionUID = 1L;
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+
+	//@NotEmpty
+	private String nombre;
 	
-	private String name;
-	
+	//@NotEmpty
 	private String apellido;
 	
+	//@NotEmpty
+	//@Email
 	private String email;
-	
-	private Date createAt;
 
+	//@NotNull
+	@Column(name = "create_at")
+	@Temporal(TemporalType.DATE)
+	@DateTimeFormat(pattern="yyyy-MM-dd")
+	private Date createAt;
+	
 	public Long getId() {
 		return id;
 	}
@@ -22,12 +51,12 @@ public class Cliente implements Serializable{
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
+	public String getNombre() {
+		return nombre;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
 	}
 
 	public String getApellido() {
@@ -53,6 +82,5 @@ public class Cliente implements Serializable{
 	public void setCreateAt(Date createAt) {
 		this.createAt = createAt;
 	}
-	
-	
+
 }
